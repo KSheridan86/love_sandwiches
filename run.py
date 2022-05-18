@@ -49,8 +49,8 @@ def validate_data(values):
             raise ValueError(
                 f"Exactly 6 values required, you provided {len(values)}"
             )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
+    except ValueError as in_correct:
+        print(f"Invalid data: {in_correct}, please try again.\n")
         return False
 
     return True
@@ -86,6 +86,22 @@ def calculate_surplus_data(sales_row):
     return surplus_data
 
 
+def get_last_five_entries_sales():
+    """
+    Collects columns of data from sales worksheet,
+    collecting the last 5 entries for each sandwich and
+    returns the data as a list of lists.
+    """
+    sales = SHEET.worksheet('sales')
+
+    columns = []
+    for x in range(1, 7):
+        column = sales.col_values(x)
+        columns.append(column[-5:])
+    pprint(columns)
+    return columns
+
+
 def main():
     """
     Run all program functions
@@ -98,4 +114,5 @@ def main():
 
 
 print("Welcome to Love Sandwiches Data Automation")
-main()
+# main()
+sales_columns = get_last_five_entries_sales()
